@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - JWT_SECRET=secret123
+    volumes:
+      - ./backend:/app
+    networks:
+      - auth-net
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:5173"
+    depends_on:
+      - backend
+    networks:
+      - auth-net
+
+networks:
+  auth-net:
